@@ -33,8 +33,8 @@ CREATE TABLE RowTable
 );
 
 ```
-`Username: craps`\
+`Username: craps`
 
-`Password : craps`\
+`Password : craps`
 
-`Table name:  CRAPS`\
+`Table name:  CRAPS`
