@@ -1,6 +1,6 @@
 
 
-package ex1416;
+package GameEngine;
 import java.util.Random;
 
 /**
@@ -14,7 +14,8 @@ public class CrapsSimple {
                 die2,
                 sum,
                 point,
-                gameState,
+                rolls,
+                gameState = 0,
                 winState;
     
     private String winStatus,
@@ -87,7 +88,7 @@ public class CrapsSimple {
         if (gameState == 0) {
                 
                 winState = firstRoll();
-                
+                rolls++;
                 switch (winState) {
                     case 1:
                         status = "You win.";
@@ -105,7 +106,7 @@ public class CrapsSimple {
         else {
                 
                 winState = nextRoll();
-               
+                rolls++;
                 switch (winState) {
                     case 1:
                         status = "You win.";
@@ -135,6 +136,9 @@ public class CrapsSimple {
         point = die1 + die2;
         return point;
     }
+    public int getRolls() {
+        return rolls;
+    }
     public void setPointInner() {
         point = die1 + die2;
     }
@@ -144,7 +148,7 @@ public class CrapsSimple {
     public String getWinStatus() {
         return winStatus;
     }
-    public String getGameStat(){
+    public String getGameStatus(){
         return status;
     }
 }
