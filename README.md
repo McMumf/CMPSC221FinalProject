@@ -1,6 +1,6 @@
 # CMPSC221FinalProject
 
-## Datanase Creation
+## Database Creation
 ```
 DROP TABLE CrapsTable;
 DROP TABLE UserTable;
@@ -33,6 +33,8 @@ CREATE TABLE RowTable
 );
 
 ```
-`Username: craps`
-`Password : craps`
-`Table name:  CRAPS`
+`Username: craps`\
+
+`Password : craps`\
+
+`Table name:  CRAPS`\
