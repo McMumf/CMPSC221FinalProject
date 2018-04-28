@@ -23,6 +23,7 @@ public class CrapsSimple {
     
     private static final Random rng = new Random();
     
+    //Constructor
     public CrapsSimple() {
         die1 = 0;
         die2 = 0;
@@ -31,14 +32,18 @@ public class CrapsSimple {
         
     }
     
-    public void internalRollDice() {
+    //Dice Roll for inside the object
+    //Gives each dice a value and calculates a sum
+    private void internalRollDice() {
         die1 = 1 + rng.nextInt(6);
         die2 = 1 + rng.nextInt(6);
         
         sum = die1 + die2;
     }
     
-    public int firstRoll() {
+    //Roll for a newly started game
+    //Returns whether or not the user won (1), lost (0), or must keep playing (2)
+    private int firstRoll() {
         internalRollDice();
         
         switch (sum) {
@@ -66,7 +71,9 @@ public class CrapsSimple {
         return winState;
     }
     
-    public int nextRoll() {
+    //If the player must continue playing, use this command
+    //Win states are the same as in firstRoll
+    private int nextRoll() {
         internalRollDice();
         
         if (sum == point) {
@@ -83,6 +90,8 @@ public class CrapsSimple {
         return winState;    
     }
     
+    //This command is for running the game entirely
+    //Any information needed from the object should be accessed through the get methods
     public void rollDice() {
         
         if (gameState == 0) {
@@ -98,8 +107,6 @@ public class CrapsSimple {
                         break;
                     default:
                         status = "Roll again.";
-                        //point = game.getPoint();
-                        //pointT.setText("" + point);
                         break;
                 }
            }
@@ -110,11 +117,9 @@ public class CrapsSimple {
                 switch (winState) {
                     case 1:
                         status = "You win.";
-                        //pointT.setText("");
                         break;
                     case 0:
                         status = "You lose.";
-                        //pointT.setText("");
                         break;
                     default:
                         status = "Roll again.";
@@ -123,6 +128,7 @@ public class CrapsSimple {
             }
     }
     
+    //All get methods are listed below
     public int getDie1() {
         return die1;
     }
