@@ -1,6 +1,6 @@
 package GUI;
 
-
+import GameEngine.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
@@ -23,6 +23,10 @@ public class GameInterface extends JFrame {
     private JPanel p1, p2, p3, p4, p5, p6;
     private JPanel upperPanel, lowerPanel, panel1;
     CardLayout cl = new CardLayout();
+    
+    CrapsSimple cs = new CrapsSimple();
+    User user = new User();
+    CrapsQuery cq = new CrapsQuery();
     
     private JLabel heading = new JLabel("Game Records");
     private JLabel l1, l2, l3, firstname, lastname;
@@ -149,6 +153,7 @@ public class GameInterface extends JFrame {
         
         
         add(tabbedPane);
+        
     }
     
     private class ButtonHandler implements ActionListener
@@ -158,17 +163,32 @@ public class GameInterface extends JFrame {
         {
             //Refresh game status button
             if (event.getSource()== refresh) {
-                fName.setText(splited[0]);
-                lName.setText(splited[1]);
-                //JOptionPane.showMessageDialog(GameInterface.this, String.format(
-                    //"Refresh.", event.getActionCommand()));
+                
+                user.setFirst(splited[0]);
+                user.setLast(splited[1]);
+                user.setWins(cs.getWins());
+                user.setLosses(cs.getLosses());
+                
+                fName.setText(user.getFirst());
+                lName.setText(user.getLast());
+                total.setText(Integer.toString(user.getWins()+user.getLosses()));
+                wins.setText(Integer.toString(user.getWins()));
+                loses.setText(Integer.toString(user.getLosses()));
+                
+                
             } else if (event.getSource() == logout) {
                 
                 
                 System.exit(0);
             } else if (event.getSource() == start) {
-                JOptionPane.showMessageDialog(GameInterface.this, String.format(
-                    "Roll a dice.", event.getActionCommand()));
+                cs.rollDice();
+                tf1.setText(Integer.toString(cs.getDie1()));
+                tf2.setText(Integer.toString(cs.getDie2()));
+                tf3.setText(Integer.toString(cs.getSum()));
+                tf4.setText(Integer.toString(cs.getPoint()));
+                title.setText(cs.getGameStatus());
+                
+                //cq.addRoll(Integer.toString(cs.getDie1()),Integer.toString(cs.getDie2()));
             }
         }
     }

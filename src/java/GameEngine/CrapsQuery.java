@@ -37,21 +37,21 @@ public class CrapsQuery
             DriverManager.getConnection( URL, USERNAME, PASSWORD );
          
          // Get the last User_ID from the UserTable       
-         getUserID = connection.prepareStatement (
-            "SELECT TOP 1 User_ID FROM UserTable ORDER BY User_ID DESC");
+         //getUserID = connection.prepareStatement (
+           // "SELECT TOP 1 User_ID FROM UserTable ORDER BY User_ID DESC");
          
          // Get the last Craps_SessionID from the CrapsTable
-         getSessionID = connection.prepareStatement (
-            "SELECT TOP 1 Craps_SessionID FROM CrapsTable ORDER BY Craps_SessionID DESC");
+         //getSessionID = connection.prepareStatement (
+           // "SELECT TOP 1 Craps_SessionID FROM CrapsTable ORDER BY Craps_SessionID DESC");
          
          // Update the win and loss of a user
          updateUser = connection.prepareStatement(
-            "UPDATE UserTable Set User_Win = ? AND User_Lose = ? " + 
+            "UPDATE UserTable Set User_Win = ?, User_Lose = ? " + 
             "WHERE User_ID = ?");
          
          // Update the win and loss of a user
          updateCraps = connection.prepareStatement(
-            "UPDATE CrapsTable Set Craps_Outcome = ? AND Roll_Total = ? AND Craps_Points = ? " + 
+            "UPDATE CrapsTable Set Craps_Outcome = ?, Roll_Total = ?, Craps_Points = ? " + 
             "WHERE Craps_SessionID = ?");       
          
          // create insert that adds a new entry into the database
