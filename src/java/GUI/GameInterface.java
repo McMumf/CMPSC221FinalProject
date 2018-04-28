@@ -42,6 +42,8 @@ public class GameInterface extends JFrame {
         
         name = JOptionPane.showInputDialog("What's your first and last name? (Put a space between them)");
         splited = name.split("\\s+");
+        cq.addUser(splited[0], splited[1]);
+        cq.addCraps();
         
         //title, also used to tell user game status, like "Keep rolling", "You won"
         title = new JLabel("Roll a Dice to Start");
@@ -177,18 +179,33 @@ public class GameInterface extends JFrame {
                 
                 
             } else if (event.getSource() == logout) {
-                
+                cq.updateUser(Integer.toString(user.getWins()), Integer.toString(user.getLosses()));
                 
                 System.exit(0);
             } else if (event.getSource() == start) {
+                
+                switch(cs.getWinState()){
+                    case 1:
+                        cq.updateCraps("win", Integer.toString(cs.getRolls()), Integer.toString(cs.getPoint()));
+                        user.setWins(cs.getWins());
+                        break;
+                    case 0:
+                        cq.updateCraps("lose", Integer.toString(cs.getRolls()), Integer.toString(cs.getPoint()));
+                        user.setLosses(cs.getLosses());
+                        break;
+                    default:
+                        break;
+                    }
+                
                 cs.rollDice();
                 tf1.setText(Integer.toString(cs.getDie1()));
                 tf2.setText(Integer.toString(cs.getDie2()));
                 tf3.setText(Integer.toString(cs.getSum()));
                 tf4.setText(Integer.toString(cs.getPoint()));
                 title.setText(cs.getGameStatus());
+                cq.addRoll(Integer.toString(cs.getDie1()),Integer.toString(cs.getDie2()));
                 
-                //cq.addRoll(Integer.toString(cs.getDie1()),Integer.toString(cs.getDie2()));
+                
             }
         }
     }

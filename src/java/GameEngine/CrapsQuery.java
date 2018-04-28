@@ -17,7 +17,7 @@ public class CrapsQuery
    private static final String PASSWORD = "craps";
 
    private Connection connection = null; // manages connection
-   private PreparedStatement getUserID = null;
+   private PreparedStatement getUserID=null;
    private PreparedStatement getSessionID = null;
    private PreparedStatement updateUser = null;
    private PreparedStatement updateCraps = null;
@@ -38,17 +38,11 @@ public class CrapsQuery
          
          // Get the last User_ID from the UserTable       
         getUserID = connection.prepareStatement (
-            "SELECT MAX(User_ID) " +
-            "FROM UserTable " +
-            "GROUP BY User_ID " +
-            "ORDER BY User_ID DESC");
+            "SELECT * FROM UserTable ORDER BY User_ID DESC");
          
          // Get the last Craps_SessionID from the CrapsTable
          getSessionID = connection.prepareStatement (
-            "SELECT MAX(Craps_SessionID) " +
-            "FROM CrapsTable " +
-            "GROUP BY Craps_SessionID " +
-            "ORDER BY Craps_SessionID DESC");
+            "SELECT * FROM CrapsTable ORDER BY Craps_SessionID DESC");
          
          // Update the win and loss of a user
          updateUser = connection.prepareStatement(
@@ -138,7 +132,7 @@ public class CrapsQuery
       String fname, String lname)
    {
       int result = 0;
-      
+      ResultSet resultSet;
       // set parameters, then execute insertNewUser
       try 
       {
@@ -147,26 +141,27 @@ public class CrapsQuery
 
          // insert the new entry; returns # of rows updated
          result = insertNewUser.executeUpdate(); 
-         
+
          //Update userID
           if(result == 1){
-          userID = Double.toString(getUserID.executeUpdate());
+          resultSet = getUserID.executeQuery();
+          resultSet.next();
+          userID = Integer.toString(resultSet.getInt( "User_ID" ));
           }
       } // end try
       catch ( SQLException sqlException )
       {
          sqlException.printStackTrace();
          close();
-      } // end catch
-      
+      } // end catch      
       return result;
    } // end method addUser
    
       // add a new entry of Craps game
-   public int addCraps( 
-      String ID)
+   public int addCraps()
    {
       int result = 0;
+      ResultSet resultset;
       
       // set parameters, then execute insertNewCraps
       try 
@@ -178,7 +173,9 @@ public class CrapsQuery
          
          //Update userID
           if(result == 1){
-          sessionID = Double.toString(getSessionID.executeUpdate());         
+          resultset = getSessionID.executeQuery();
+          resultset.next();
+          sessionID = Integer.toString(resultset.getInt( "Craps_SessionID" ));
           }
       } // end try
       catch ( SQLException sqlException )
