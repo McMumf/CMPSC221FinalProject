@@ -168,6 +168,9 @@ public class CrapsSimple {
     public int getGameState() {
         return gameState;
     }
+    public int getWinState() {
+        return winState;
+    }
     public String getWinStatus() {
         return winStatus;
     }

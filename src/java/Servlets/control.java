@@ -24,6 +24,7 @@ public class control extends HttpServlet {
     CrapsQuery db = new CrapsQuery();
     
     
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,15 +35,51 @@ public class control extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String first = request.getParameter("FirstName");
-        String last = request.getParameter("LastName");
+        String action = request.getParameter("action");
         String url = null;
+        
+        switch(action) {
+            case "start":
+                user.setFirst(request.getParameter("FirstName"));
+                user.setLast(request.getParameter("LastName"));
+                
+                db.addUser(user.getFirst(), user.getLast());
+                db.addCraps();
 
-        
-        url = "/GamePage.jsp";
-        
-        getServletContext().getRequestDispatcher(url).forward(request, response);
-        
+                url = "/GamePage.jsp";
+                getServletContext().getRequestDispatcher(url).forward(request, response);
+                break;
+            case "roll":
+                url = "/GamePage.jsp";
+                request.setAttribute("game", game);
+                
+                switch(game.getWinState()){
+                    case 1:
+                        db.updateCraps("win", Integer.toString(game.getRolls()), Integer.toString(game.getPoint()));
+                        user.setWins(game.getWins());
+                        break;
+                    case 0:
+                        db.updateCraps("lose", Integer.toString(game.getRolls()), Integer.toString(game.getPoint()));
+                        user.setLosses(game.getLosses());
+                        break;
+                    default:
+                        break;
+                    }
+                
+                game.rollDice();
+                db.addRoll(Integer.toString(game.getDie1()), Integer.toString(game.getDie2()));
+
+                getServletContext().getRequestDispatcher(url).forward(request, response);
+                break;
+            case "exit":
+                url = "/result.jsp";
+                request.setAttribute("game", game);
+                
+                db.updateUser(Integer.toString(user.getWins()), Integer.toString(user.getLosses()));
+                db.close();
+                getServletContext().getRequestDispatcher(url).forward(request, response);
+                break;
+        }      
     }
 
     @Override

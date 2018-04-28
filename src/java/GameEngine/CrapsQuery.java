@@ -37,12 +37,18 @@ public class CrapsQuery
             DriverManager.getConnection( URL, USERNAME, PASSWORD );
          
          // Get the last User_ID from the UserTable       
-         //getUserID = connection.prepareStatement (
-           // "SELECT TOP 1 User_ID FROM UserTable ORDER BY User_ID DESC");
+        getUserID = connection.prepareStatement (
+            "SELECT MAX(User_ID) " +
+            "FROM UserTable " +
+            "GROUP BY User_ID " +
+            "ORDER BY User_ID DESC");
          
          // Get the last Craps_SessionID from the CrapsTable
-         //getSessionID = connection.prepareStatement (
-           // "SELECT TOP 1 Craps_SessionID FROM CrapsTable ORDER BY Craps_SessionID DESC");
+         getSessionID = connection.prepareStatement (
+            "SELECT MAX(Craps_SessionID) " +
+            "FROM CrapsTable " +
+            "GROUP BY Craps_SessionID " +
+            "ORDER BY Craps_SessionID DESC");
          
          // Update the win and loss of a user
          updateUser = connection.prepareStatement(
