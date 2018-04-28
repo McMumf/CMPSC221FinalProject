@@ -15,22 +15,34 @@
         
         <h1>Roll the Dice</h1>
         
-        <form action = "" method = "">
+        <form action = "" method = "POST">
         
+            <input id="gameTrigger" type="hidden" name="action" value=""> 
             <label>Die1:</label>
-            <input type="text" value="" readonly="true" id="die1"/><br><br>
+            <input type="text" value="${ game.die1 }" readonly="true" id="die1"/><br><br>
             <label>Die2:</label>
-            <input type="text" value="" readonly="true" id="die2"/><br><br>
+            <input type="text" value="${ game.die2 }" readonly="true" id="die2"/><br><br>
             <label>Sum:</label>
-            <input type="text" value="" readonly="true" id="sum"/><br><br>
+            <input type="text" value="${ game.sum }" readonly="true" id="sum"/><br><br>
             <label>Point:</label>
-            <input type="text" value="" readonly="true" id="point"/><br><br>
-            <p>You <span id="winloss"></span>!</p>
+            <input type="text" value="${ game.point }" readonly="true" id="point"/><br><br>
+            <p>You <span id="winloss">${ game.gameState }</span>!</p>
             
-            <button>Roll</button>&nbsp;&nbsp;
-            <button>Exit</button>
+            <button onclick="roll()" type="submit">Roll</button>&nbsp;&nbsp;
+            <button onclick="exit()" type="submit">Exit</button>
         
         </form>
         
+            
+        <script type="text/javascript">
+            function roll() {
+                document.getElementById("gameTrigger").value = "roll";
+            }
+            
+            function exit() {
+                document.getElementById("gameTrigger").value = "exit";
+            }
+        </script>
+            
     </body>
 </html>
