@@ -15,6 +15,8 @@ public class CrapsSimple {
                 sum,
                 point,
                 rolls,
+                wins,
+                losses,
                 gameState = 0,
                 winState;
     
@@ -29,6 +31,8 @@ public class CrapsSimple {
         die2 = 0;
         sum = 0;
         point = 0;
+        wins = 0;
+        losses = 0;
         
     }
     
@@ -52,6 +56,8 @@ public class CrapsSimple {
                 gameState= 0;
                 winState = 1;
                 winStatus = "You win.";
+                wins++;
+                point = 0;
                 break;
             case 2:
             case 3:
@@ -59,6 +65,8 @@ public class CrapsSimple {
                 gameState = 0;
                 winState = 0;
                 winStatus = "You lost.";
+                losses++;
+                point = 0;
                 break;
             default:
                 gameState = 1;
@@ -79,10 +87,14 @@ public class CrapsSimple {
         if (sum == point) {
             gameState = 0;
             winState = 1;
+            point = 0;
+            wins++;
         }
         else if (sum == 7) {
             gameState = 0;
             winState = 0;
+            point = 0;
+            losses++;
         }
         else {
         }
@@ -139,11 +151,16 @@ public class CrapsSimple {
         return sum;
     }
     public int getPoint() {
-        point = die1 + die2;
         return point;
     }
     public int getRolls() {
         return rolls;
+    }
+    public int getWins(){
+        return wins;
+    }
+    public int getLosses(){
+        return losses;
     }
     public void setPointInner() {
         point = die1 + die2;

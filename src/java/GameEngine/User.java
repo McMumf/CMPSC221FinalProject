@@ -11,6 +11,13 @@ public class User {
     private int losses;
     private int userID;
     
+    public User (){
+        firstName = null;
+        lastName = null;
+        wins = 0;
+        losses = 0;
+    }
+    
     public User(String fName, String lName){
         firstName = fName;
         lastName = lName;

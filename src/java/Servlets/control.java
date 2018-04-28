@@ -10,13 +10,20 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import GameEngine.User;
+import GameEngine.CrapsSimple;
+import GameEngine.CrapsQuery;
 
 /**
  *
  * @author Alex Conway
  */
-public class toGame extends HttpServlet {
+public class control extends HttpServlet {
 
+    User user = new User();
+    CrapsSimple game = new CrapsSimple();
+    CrapsQuery db = new CrapsQuery();
+    
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,11 +36,12 @@ public class toGame extends HttpServlet {
 
         String first = request.getParameter("FirstName");
         String last = request.getParameter("LastName");
+        String url = null;
+
         
+        url = "/GamePage.jsp";
         
-        
-        
-        
+        getServletContext().getRequestDispatcher(url).forward(request, response);
         
     }
 
